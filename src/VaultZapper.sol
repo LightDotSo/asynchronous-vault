@@ -10,7 +10,7 @@ import { SafeERC20 } from
     "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import { IERC7540, IERC4626 } from "./interfaces/IERC7540.sol";
-import { PermitParams, AsyncVault } from "./AsyncVault.sol";
+import { PermitParams } from "./AsyncVault.sol";
 import { ERC20Permit } from
     "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 import { Address } from "@openzeppelin/contracts/utils/Address.sol";
