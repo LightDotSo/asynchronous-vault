@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: MIT
-pragma solidity 0.8.21;
+pragma solidity ^0.8.21;
 
 import {
     IERC7540,
@@ -309,29 +309,30 @@ contract AsyncVault is IERC7540, SyncVault {
         claimableSilo = new Silo(underlying);
     }
 
-    /**
-     * @dev This function is used to decrease the amount of assets requested to
-     * deposit by the user. It can only be called by the user who made the
-     * request.
-     * @param assets The amount of assets requested by the user.
-     */
-    function decreaseDepositRequest(uint256 assets)
-        external
-        whenClosed
-        whenNotPaused
-    {
-        address owner = _msgSender();
-        uint256 oldBalance = epochs[epochId].depositRequestBalance[owner];
-        epochs[epochId].depositRequestBalance[owner] -= assets;
-        _asset.safeTransferFrom(address(pendingSilo), owner, assets);
+    // /**
+    //  * @dev This function is used to decrease the amount of assets requested
+    // to
+    //  * deposit by the user. It can only be called by the user who made the
+    //  * request.
+    //  * @param assets The amount of assets requested by the user.
+    //  */
+    // function decreaseDepositRequest(uint256 assets)
+    //     external
+    //     whenClosed
+    //     whenNotPaused
+    // {
+    //     address owner = _msgSender();
+    //     uint256 oldBalance = epochs[epochId].depositRequestBalance[owner];
+    //     epochs[epochId].depositRequestBalance[owner] -= assets;
+    //     _asset.safeTransferFrom(address(pendingSilo), owner, assets);
 
-        emit DecreaseDepositRequest(
-            epochId,
-            owner,
-            oldBalance,
-            epochs[epochId].depositRequestBalance[owner]
-        );
-    }
+    //     emit DecreaseDepositRequest(
+    //         epochId,
+    //         owner,
+    //         oldBalance,
+    //         epochs[epochId].depositRequestBalance[owner]
+    //     );
+    // }
 
     /**
      * @dev This function is used to decrease the amount of shares requested to
@@ -1051,10 +1052,8 @@ contract AsyncVault is IERC7540, SyncVault {
             - settleValues.assetsToWithdraw;
         lastSavedBalance = settleValues.lastSavedBalance;
 
-        epochs[epochId].totalSupplySnapshot =
-            settleValues.totalSupplySnapshot;
-        epochs[epochId].totalAssetsSnapshot =
-            settleValues.totalAssetsSnapshot;
+        epochs[epochId].totalSupplySnapshot = settleValues.totalSupplySnapshot;
+        epochs[epochId].totalAssetsSnapshot = settleValues.totalAssetsSnapshot;
 
         epochId++;
 
